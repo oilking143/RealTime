@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_frame_bg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_sheet_bg"
+        android:padding="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="直播設定"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icon_close"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/icon_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="15dp"
+            android:layout_height="3dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/live_start_btn_bg"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/textView4"
+            app:layout_constraintStart_toStartOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <TextView
+            android:id="@+id/room_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="10dp"
+            android:text="房間名稱"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/room_name_editor"
+            app:layout_constraintEnd_toStartOf="@+id/room_name_editor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/room_name_editor" />
+
+        <EditText
+            android:id="@+id/room_name_editor"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/normal_text_box"
+            app:layout_constraintEnd_toStartOf="@+id/icon_close"
+            app:layout_constraintStart_toEndOf="@+id/room_name"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+        <TextView
+            android:id="@+id/type_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="直播分類"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/type_name_editor"
+            app:layout_constraintEnd_toStartOf="@+id/type_name_editor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/type_name_editor" />
+
+        <com.skydoves.powerspinner.PowerSpinnerView
+            android:id="@+id/type_name_editor"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/normal_text_box"
+            android:gravity="center"
+            android:hint="直播種類"
+            app:layout_constraintEnd_toEndOf="@+id/room_name_editor"
+            app:layout_constraintStart_toStartOf="@+id/room_name_editor"
+            app:layout_constraintTop_toBottomOf="@+id/room_name_editor"
+            app:spinner_arrow_drawable="@drawable/icon_drop_down_arror"
+            app:spinner_arrow_gravity="end"
+            app:spinner_arrow_padding="8dp"
+            app:spinner_arrow_show="true" />
+
+        <TextView
+            android:id="@+id/private_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="隱私設定"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/private_radio"
+            app:layout_constraintEnd_toStartOf="@+id/private_radio"
+            app:layout_constraintStart_toStartOf="@+id/type_name"
+            app:layout_constraintTop_toTopOf="@+id/private_radio" />
+
+        <RadioGroup
+            android:id="@+id/private_radio"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/radio_frame"
+            android:orientation="horizontal"
+            android:padding="1dp"
+            app:layout_constraintStart_toStartOf="@+id/type_name_editor"
+            app:layout_constraintTop_toBottomOf="@+id/type_name_editor">
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_private_selector"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="私人"
+                android:textColor="@color/white" />
+
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_private_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="公開"
+                android:textColor="@color/white" />
+
+        </RadioGroup>
+
+
+        <TextView
+            android:id="@+id/filter_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="美顏相機"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/filter_type"
+            app:layout_constraintEnd_toStartOf="@+id/filter_type"
+            app:layout_constraintStart_toStartOf="@+id/private_set"
+            app:layout_constraintTop_toTopOf="@+id/filter_type" />
+
+        <com.skydoves.powerspinner.PowerSpinnerView
+            android:id="@+id/filter_type"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/normal_text_box"
+            android:gravity="center"
+            android:hint="相機種類"
+            app:layout_constraintEnd_toEndOf="@+id/room_name_editor"
+            app:layout_constraintStart_toEndOf="@+id/filter_name"
+            app:layout_constraintTop_toBottomOf="@+id/private_radio"
+            app:spinner_arrow_drawable="@drawable/icon_drop_down_arror"
+            app:spinner_arrow_gravity="end"
+            app:spinner_arrow_padding="8dp"
+            app:spinner_arrow_show="true" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="128dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/live_start_btn_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filter_type">
+
+
+            <ImageView
+                android:id="@+id/playicon"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/play_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="馬上開播"
+                android:textColor="#FF5F6D"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/playicon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

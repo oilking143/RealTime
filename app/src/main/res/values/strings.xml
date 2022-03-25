@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">RealTime</string>
+
+    <string name="toast_1000">Connecting to server</string>
+    <string name="toast_1001">Connecting to server</string>
+    <string name="toast_1002">Connecting to server</string>
+    <string name="toast_1003">Connecting to server</string>
+    <string name="toast_1004">Connecting to server</string>
+    <string name="toast_1005">Connecting to server</string>
+
+    <string name="toast_2000">Connecting to server</string>
+    <string name="toast_2001">Connect successfully and start streaming</string>
+    <string name="toast_2002">Streaming failed</string>
+    <string name="toast_2003">Connecting to server</string>
+    <string name="toast_2004">Streaming ended</string>
+    <string name="toast_2005">network anomaly</string>
+</resources>

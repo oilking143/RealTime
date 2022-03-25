@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/login_nraph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="talent.jump.Fragment.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_windowFragment"
+            app:destination="@id/windowFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/windowFragment"
+        android:name="talent.jump.Fragment.WindowFragment"
+        android:label="WindowFragment" >
+        <action
+            android:id="@+id/action_windowFragment_to_passwordConfirmFragment"
+            app:destination="@id/passwordConfirmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordConfirmFragment"
+        android:name="talent.jump.Fragment.PasswordConfirmFragment"
+        android:label="PasswordConfirmFragment" />
+</navigation>

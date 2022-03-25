@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="talent.jump.Fragment.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_liveRoomFragment"
+            app:destination="@id/liveRoomFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_watchRoomFragment"
+            app:destination="@id/watchRoomFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/liveRoomFragment"
+        android:name="talent.jump.Fragment.LiveRoomFragment"
+        android:label="LiveRoomFragment"
+        tools:layout="@layout/liveroom_fragment"/>
+    <fragment
+        android:id="@+id/watchRoomFragment"
+        android:name="talent.jump.Fragment.WatchRoomFragment"
+        android:label="WatchRoomFragment" />
+
+
+
+</navigation>
