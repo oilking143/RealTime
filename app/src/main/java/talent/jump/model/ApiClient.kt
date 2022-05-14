@@ -13,9 +13,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import talent.jump.Events.GetUserEvent
 import talent.jump.Events.LoginEvent
 import talent.jump.Events.RegisterEvent
 import talent.jump.Events.errorEvent
+import talent.jump.data.GetUserResponse
 import talent.jump.data.LoginResponse
 import talent.jump.data.RegisterResponse
 import java.util.concurrent.TimeUnit
@@ -101,6 +103,36 @@ class ApiClient {
                 }
 
                 override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+
+
+        }
+    }
+
+    fun getMe()
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+
+            api.getMe().enqueue(object:retrofit2.Callback<GetUserResponse>{
+                override fun onResponse(
+                    call: Call<GetUserResponse>,
+                    response: Response<GetUserResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: GetUserResponse =response.body()!!
+                        EventBus.getDefault().post(GetUserEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<GetUserResponse>, t: Throwable) {
                     EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
                 }
 
