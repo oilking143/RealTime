@@ -1,6 +1,6 @@
 package talent.jump.data
 
-data class GetUserData(
+data class OwnerStream(
     val create_at: Long,
     val delete_at: Int,
     val email: String,
@@ -8,7 +8,8 @@ data class GetUserData(
     val follows_count: Int,
     val id: String,
     val nickname: String,
-    val getUserStream_auth: GetUserStreamAuth,
+    val profile_photo: String,
+    val stream_auth: Any,
     val type: Int,
     val update_at: Long,
     val username: String

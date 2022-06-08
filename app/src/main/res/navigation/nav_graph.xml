@@ -16,17 +16,48 @@
         <action
             android:id="@+id/action_mainFragment_to_watchRoomFragment"
             app:destination="@id/watchRoomFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_notStartPersonalFragment"
+            app:destination="@id/notStartPersonalFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_personalEditFragment"
+            app:destination="@id/personalEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/liveRoomFragment"
         android:name="talent.jump.Fragment.LiveRoomFragment"
         android:label="LiveRoomFragment"
-        tools:layout="@layout/liveroom_fragment"/>
+        tools:layout="@layout/liveroom_fragment">
+        <argument
+            android:name="pushstream"
+            app:argType="string"
+            app:nullable="false"/>
+    </fragment>
     <fragment
         android:id="@+id/watchRoomFragment"
         android:name="talent.jump.Fragment.WatchRoomFragment"
-        android:label="WatchRoomFragment" />
-
+        android:label="WatchRoomFragment" >
+        <argument
+            android:name="pullstream"
+            app:argType="string"
+            app:nullable="false"/>
+        <argument
+            android:name="stId"
+            app:argType="string"
+            app:nullable="false"/>
+        <argument
+            android:name="name"
+            app:argType="string"
+            app:nullable="false"/>
+    </fragment>
+    <fragment
+        android:id="@+id/notStartPersonalFragment"
+        android:name="talent.jump.Fragment.NotStartPersonalFragment"
+        android:label="NotStartPersonalFragment" />
+    <fragment
+        android:id="@+id/personalEditFragment"
+        android:name="talent.jump.Fragment.PersonalEditFragment"
+        android:label="PersonalEditFragment" />
 
 
 </navigation>

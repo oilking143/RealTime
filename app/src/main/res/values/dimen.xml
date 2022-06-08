@@ -6,5 +6,7 @@
     <dimen name="dots_radius">4dp</dimen>
     <dimen name="dots_padding">4dp</dimen>
     <dimen name="dots_bottom_margin">4dp</dimen>
+    <dimen name="select_radio">8sp</dimen>
+    <dimen name="normal_radio">6sp</dimen>
 
 </resources>

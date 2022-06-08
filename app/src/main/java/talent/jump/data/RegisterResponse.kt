@@ -1,6 +1,6 @@
 package talent.jump.data
 
 data class RegisterResponse(
-    val registerData: RegisterData,
+    val data: RegisterData,
     val status: Boolean
 )

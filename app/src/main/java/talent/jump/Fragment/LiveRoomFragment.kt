@@ -1,5 +1,6 @@
 package talent.jump.Fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.SurfaceHolder
@@ -8,12 +9,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.pedro.encoder.input.video.CameraHelper
 import com.pedro.rtmp.utils.ConnectCheckerRtmp
 import com.pedro.rtplibrary.rtmp.RtmpCamera1
 import talent.jump.R
 import talent.jump.databinding.LiveroomFragmentBinding
+import talent.jump.utility.PlayerViewModel
 import talent.jump.utility.TuberInterfaceDialog
 
 
@@ -24,6 +28,9 @@ class LiveRoomFragment: BaseFragment(), SurfaceHolder.Callback, ConnectCheckerRt
     private var ownerFlag: Boolean = false
     private var rtmpCamera1: RtmpCamera1? = null
     var streamFrag=false
+    var url=""
+    private lateinit var viewModel: PlayerViewModel
+    val args by navArgs<LiveRoomFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,14 +59,9 @@ class LiveRoomFragment: BaseFragment(), SurfaceHolder.Callback, ConnectCheckerRt
                     binding.startStream.text = "Stop"
 
                     if (rtmpCamera1!!.isRecording || prepareEncoders()) {
-                        rtmpCamera1!!.startStream("rtmp://115453.livepush.myqcloud.com/live/test1?txSecret=89b0713dad485025469df7dbba570d9b&txTime=612DA966")
+                        rtmpCamera1!!.startStream(url)
                         rtmpCamera1!!.switchCamera()
                     } else {
-                        //If you see this all time when you start stream,
-                        //it is because your encoder device dont support the configuration
-                        //in video encoder maybe color format.
-                        //If you have more encoder go to VideoEncoder or AudioEncoder class,
-                        //change encoder and try
                         Toast.makeText(
                             context, "Error preparing stream, This device cant do it",
                             Toast.LENGTH_SHORT
@@ -73,6 +75,13 @@ class LiveRoomFragment: BaseFragment(), SurfaceHolder.Callback, ConnectCheckerRt
             }
 
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        viewModel = ViewModelProvider(this).get(PlayerViewModel::class.java)
+
+        url=args.pushstream
     }
 
 

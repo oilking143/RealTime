@@ -1,36 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="150dp"
-
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
        android:id="@+id/liveroom_frame"
-        android:layout_width="170dp"
-        android:layout_height="150dp"
-        android:background="@drawable/item_room_frame"
+        android:layout_width="190dp"
+        android:layout_height="175dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        >
 
         <ImageView
+            android:id="@+id/living_mark"
             android:layout_width="50dp"
             android:layout_height="16dp"
             android:src="@drawable/live_icon"
             android:elevation="2dp"
             android:layout_margin="7dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/imageView2" />
+            app:layout_constraintStart_toStartOf="@+id/room_photo" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/room_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:alpha="0.6"
-            android:src="@drawable/forest"
+            android:scaleType="centerInside"
             app:layout_constraintBottom_toTopOf="@+id/status_frame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,8 +42,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/status_frame"
-            android:layout_width="170dp"
-            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#F2F2F2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" >
@@ -50,25 +55,27 @@
                 android:layout_height="wrap_content"
                 android:text="職播主名稱"
                 android:layout_marginStart="5dp"
+                android:textColor="#3a3a3a"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 />
 
             <ImageView
                 android:id="@+id/watch_icon"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:src="@drawable/watch_icon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/see_icon"
                 android:layout_marginStart="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tubername"/>
+                app:layout_constraintBottom_toBottomOf="@+id/watch"
+                app:layout_constraintTop_toTopOf="@+id/watch"/>
 
             <TextView
                 android:id="@+id/watch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="232568"
+                android:textColor="#3a3a3a"
                 android:layout_marginStart="5dp"
                 app:layout_constraintStart_toEndOf="@+id/watch_icon"
                 app:layout_constraintTop_toBottomOf="@+id/tubername"
@@ -80,6 +87,17 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    <View
+        android:layout_width="210dp"
+        android:layout_height="190dp"
+        app:layout_constraintTop_toTopOf="@+id/liveroom_frame"
+        app:layout_constraintEnd_toEndOf="@+id/liveroom_frame"
+        app:layout_constraintStart_toStartOf="@+id/liveroom_frame"
+        app:layout_constraintBottom_toBottomOf="@+id/liveroom_frame"
+        android:background="@drawable/item_live_room_frame"
+
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/surfaceView"
+        app:resize_mode="fill"
         />
     <FrameLayout
         android:id="@+id/bg_img"
@@ -123,7 +124,7 @@
         app:layout_constraintEnd_toEndOf="@+id/message_typer"
         app:layout_constraintTop_toTopOf="@+id/message_typer" />
 
-
+ㄅ
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -132,5 +133,136 @@
         app:layout_constraintBottom_toBottomOf="@+id/message_typer"
         app:layout_constraintEnd_toEndOf="@id/bg_img"
         app:layout_constraintStart_toEndOf="@+id/message_typer" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/push_msg"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintStart_toStartOf="@+id/push_msg">
+
+        <LinearLayout
+            android:id="@+id/hot_key_morning"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:gravity="center"
+            android:background="@drawable/hot_key_msg_btn_frame"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="早安"
+                android:textColor="#FF756F"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/hot_key_afternoon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/hot_key_msg_btn_frame"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="午安"
+                android:textColor="#FF756F"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/hot_key_evening"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/hot_key_msg_btn_frame"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="晚安"
+                android:textColor="#FF756F"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/hot_key_hi"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/hot_key_msg_btn_frame"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="安安"
+                android:textColor="#FF756F"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/hot_key_hellow"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/hot_key_msg_btn_frame"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="安安"
+                android:textColor="#FF756F"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/push_msg"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:hint="打個招呼吧"
+        android:background="@drawable/live_room_text_box"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="60dp"
+        android:paddingStart="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/msg_send"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/icon_send"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/push_msg"
+        app:layout_constraintEnd_toEndOf="@+id/push_msg"
+        app:layout_constraintTop_toTopOf="@+id/push_msg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

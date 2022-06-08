@@ -14,4 +14,12 @@
     <string name="toast_2003">Connecting to server</string>
     <string name="toast_2004">Streaming ended</string>
     <string name="toast_2005">network anomaly</string>
+    <string name="mail_success">已發送認證信至信箱。</string>
+    <string name="auth_success">註冊直播主成功</string>
+    <string name="prepare_mail">正在發送認證請求</string>
+    <string name="mail_fail">Email 未填寫。</string>
+    <string name="access_success">認證成功</string>
+    <string name="access_yet">取得認證信</string>
+    <string name="access_fail">認證失敗，請查詢註冊資料</string>
+    <string name="register_fail">註冊失敗，請查詢註冊資料</string>
 </resources>

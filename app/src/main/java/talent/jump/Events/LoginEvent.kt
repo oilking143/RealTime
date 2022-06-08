@@ -2,16 +2,16 @@ package talent.jump.Events
 
 import talent.jump.data.LoginResponse
 
-class LoginEvent internal constructor(LoginData: LoginResponse){
-    private var loginData: LoginResponse = LoginData
+class LoginEvent internal constructor(LoginResponse: LoginResponse){
+    private var loginResponse: LoginResponse = LoginResponse
 
     init {
-        this.loginData = LoginData
+        this.loginResponse = LoginResponse
     }
 
     fun GetLoginData(): LoginResponse
     {
-        return loginData
+        return loginResponse
     }
 }
 

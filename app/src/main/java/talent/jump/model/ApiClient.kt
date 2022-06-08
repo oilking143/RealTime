@@ -13,18 +13,14 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import talent.jump.Events.GetUserEvent
-import talent.jump.Events.LoginEvent
-import talent.jump.Events.RegisterEvent
-import talent.jump.Events.errorEvent
-import talent.jump.data.GetUserResponse
-import talent.jump.data.LoginResponse
-import talent.jump.data.RegisterResponse
+import talent.jump.BuildConfig
+import talent.jump.Events.*
+import talent.jump.data.*
 import java.util.concurrent.TimeUnit
 
 class ApiClient {
 
-    var api= Retrofit.Builder().baseUrl("https://dev-api.asiaplay777.com")
+    var api= Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
         .client(getOkHttpClient())
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -112,27 +108,27 @@ class ApiClient {
         }
     }
 
-    fun getMe()
+    fun verifyMail(data: JsonObject)
     {
         GlobalScope.launch(Dispatchers.IO) {
 
 
-            api.getMe().enqueue(object:retrofit2.Callback<GetUserResponse>{
+            api.verifyMail(data).enqueue(object:retrofit2.Callback<VerifyMailReaponse>{
                 override fun onResponse(
-                    call: Call<GetUserResponse>,
-                    response: Response<GetUserResponse>
+                    call: Call<VerifyMailReaponse>,
+                    response: Response<VerifyMailReaponse>
                 ) {
                     if(response.isSuccessful)
                     {
-                        val data: GetUserResponse =response.body()!!
-                        EventBus.getDefault().post(GetUserEvent(data))
+                        val data: VerifyMailReaponse =response.body()!!
+                        EventBus.getDefault().post(GetVerifyMailEvent(data))
                     }
                     else{
                         EventBus.getDefault().post(errorEvent(response.message().toString()))
                     }
                 }
 
-                override fun onFailure(call: Call<GetUserResponse>, t: Throwable) {
+                override fun onFailure(call: Call<VerifyMailReaponse>, t: Throwable) {
                     EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
                 }
 
@@ -141,4 +137,66 @@ class ApiClient {
 
         }
     }
+
+    fun frogetPassword(data: JsonObject)
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+
+            api.frogetPassword(data).enqueue(object:retrofit2.Callback<ForgetPassResponse>{
+                override fun onResponse(
+                    call: Call<ForgetPassResponse>,
+                    response: Response<ForgetPassResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: ForgetPassResponse =response.body()!!
+                        EventBus.getDefault().post(ForgetPassEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<ForgetPassResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+
+
+        }
+    }
+
+
+    fun updatePassword(data: JsonObject)
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+
+            api.updatePassword(data).enqueue(object:retrofit2.Callback<LoginResponse>{
+                override fun onResponse(
+                    call: Call<LoginResponse>,
+                    response: Response<LoginResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: LoginResponse =response.body()!!
+                        EventBus.getDefault().post(LoginEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+
+
+        }
+    }
+
 }

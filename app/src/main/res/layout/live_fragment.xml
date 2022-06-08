@@ -2,7 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    >
 
     <TextView
         android:id="@+id/live_title_btn"
@@ -11,6 +13,7 @@
         android:text="直播"
         android:textSize="25dp"
         android:textStyle="bold"
+        android:textColor="#3A3A3A"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="10dp"
@@ -23,6 +26,7 @@
         android:layout_height="wrap_content"
         android:text="音樂"
         android:textSize="20dp"
+        android:textColor="#3A3A3A"
         android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/live_title_btn"
         app:layout_constraintStart_toEndOf="@+id/live_title_btn"
@@ -34,6 +38,7 @@
         android:layout_height="wrap_content"
         android:text="遊戲"
         android:textSize="20dp"
+        android:textColor="#3A3A3A"
         android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/music_title_btn"
         app:layout_constraintStart_toEndOf="@+id/music_title_btn"
@@ -45,41 +50,49 @@
         android:layout_height="wrap_content"
         android:text="聊天"
         android:textSize="20dp"
+        android:textColor="#3A3A3A"
         android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/game_title_btn"
         app:layout_constraintStart_toEndOf="@+id/game_title_btn"
         />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/search_frame"
+
+
+    <EditText
+        android:id="@+id/search_box"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="45dp"
         android:background="@drawable/live_page_search_frame"
+        android:gravity="center"
+        android:hint="探索"
+        android:textColorHint="#A6A4B7"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="@+id/live_title_btn"
-        app:layout_constraintTop_toBottomOf="@+id/live_title_btn">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#3C3C3C"
+        app:layout_constraintTop_toBottomOf="@+id/live_title_btn" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:drawableLeft="@drawable/search_icon"
-            android:gravity="center"
-            android:hint="探索"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/search_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/search_icon"
+        app:layout_constraintTop_toTopOf="@+id/search_box"
+        app:layout_constraintBottom_toBottomOf="@+id/search_box"
+        app:layout_constraintStart_toStartOf="@+id/search_box"
+        app:layout_constraintEnd_toEndOf="@+id/search_box"
+        android:layout_marginEnd="60dp"
+        />
 
     <talent.jump.utility.NestedScrollableHost
         android:id="@+id/banner_frame"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/search_frame"
+        app:layout_constraintTop_toBottomOf="@+id/search_box"
         >
     <com.wangpeiyuan.cycleviewpager2.CycleViewPager2
         android:id="@+id/banner"

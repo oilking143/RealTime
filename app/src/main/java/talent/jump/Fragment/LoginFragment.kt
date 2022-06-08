@@ -33,7 +33,10 @@ class LoginFragment: BaseFragment() {
 
         Timer().schedule(object : TimerTask() {
             override fun run() {
-                findNavController().navigate(R.id.action_loginFragment_to_windowFragment)
+                activity!!.runOnUiThread {
+                    findNavController().navigate(R.id.action_loginFragment_to_windowFragment)
+
+                }
             }
         }, 3000)
 

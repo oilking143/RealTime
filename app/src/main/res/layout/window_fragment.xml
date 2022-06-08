@@ -10,12 +10,13 @@
         android:id="@+id/title_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
         android:layout_margin="5dp"
         android:src="@drawable/window_fragment_title"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -23,10 +24,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginTop="30dp"
         android:background="@drawable/item_live_login_frame"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.3"
         app:layout_constraintTop_toBottomOf="@+id/title_icon">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,8 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
             <Button
                 android:id="@+id/register"
@@ -99,116 +100,166 @@
             app:layout_constraintTop_toBottomOf="@+id/pager_group">
 
             <EditText
-                android:id="@+id/username_register"
+                android:id="@+id/email_enter_box"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/login_edoittext_frame"
-                android:hint="請輸入註冊信箱"
+                android:hint="請輸入Email 取得認證信"
+                android:textColorHint="#8E8E8E"
                 android:paddingLeft="20dp"
+                android:textColor="#3c3c3c"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <EditText
-                android:id="@+id/password_register"
+                android:id="@+id/nick_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/login_edoittext_frame"
-                android:hint="請輸入密碼"
+                android:hint="暱稱"
+                android:textColorHint="#8E8E8E"
                 android:paddingLeft="20dp"
-                android:inputType="textPassword"
+                android:textColor="#3c3c3c"
+                app:layout_constraintEnd_toEndOf="@+id/email_enter_box"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/username_register" />
-
+                app:layout_constraintTop_toBottomOf="@+id/verify_code" />
 
             <EditText
-                android:id="@+id/password_confirm"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/login_edoittext_frame"
-                android:hint="確認密碼"
-                android:paddingLeft="20dp"
-                android:inputType="textPassword"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password_register" />
-
-            <EditText
-                android:id="@+id/invite_code"
+                android:id="@+id/verify_code"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/login_edoittext_frame"
-                android:hint="請輸入邀請碼"
-                android:gravity="center"
                 android:layout_marginEnd="5dp"
-                app:layout_constraintHorizontal_bias="0.9"
+                android:background="@drawable/login_edoittext_frame"
+                android:gravity="center"
+                android:hint="信箱認證碼"
+                android:textColorHint="#8E8E8E"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/password_confirm"
+                android:textColor="#3c3c3c"
                 app:layout_constraintEnd_toStartOf="@+id/invite_btn"
-                app:layout_constraintTop_toBottomOf="@+id/password_confirm" />
+                app:layout_constraintHorizontal_bias="0.9"
+                app:layout_constraintStart_toStartOf="@+id/email_enter_box"
+                app:layout_constraintTop_toBottomOf="@+id/email_enter_box" />
 
             <Button
                 android:id="@+id/invite_btn"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:background="@drawable/login_confirm_btn_frame"
-                android:text="取得邀請碼"
-                android:textColor="@color/white"
-                android:textSize="18sp"
                 android:layout_marginStart="5dp"
+                android:background="@drawable/login_getconfirm__btn_frame"
+                android:text="取得認證信"
+                android:textColor="#FF756F"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/email_enter_box"
                 app:layout_constraintHorizontal_bias="0.9"
-                app:layout_constraintStart_toEndOf="@+id/invite_code"
-                app:layout_constraintTop_toTopOf="@+id/invite_code"
-                app:layout_constraintEnd_toEndOf="@+id/password_confirm" />
+                app:layout_constraintStart_toEndOf="@+id/verify_code"
+                app:layout_constraintTop_toTopOf="@+id/verify_code" />
 
 
             <Button
-                android:id="@+id/show_confirm_password"
-                android:layout_width="30dp"
-                android:layout_height="28dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/eye_invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/password_confirm"
-                app:layout_constraintEnd_toEndOf="@+id/password_confirm"
-                app:layout_constraintTop_toTopOf="@+id/password_confirm" />
-
-            <Button
-                android:id="@+id/show_password"
-                android:layout_width="30dp"
-                android:layout_height="28dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/eye_invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/password_register"
-                app:layout_constraintEnd_toEndOf="@+id/password_register"
-                app:layout_constraintTop_toTopOf="@+id/password_register" />
-
-            <Button
-                android:id="@+id/register_btn"
+                android:id="@+id/nextstep_btn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="20dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/login_confirm_btn_frame"
-                android:text="註冊"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/login_confirm_btn_frame_disable"
+                android:text="下一步"
                 android:textColor="@color/white"
                 android:textSize="18sp"
+                android:enabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/invite_code"
+                app:layout_constraintTop_toBottomOf="@+id/nick_name"
                 app:layout_constraintVertical_bias="1.0"
                 tools:layout_editor_absoluteX="8dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/register_page2_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pager_group">
+
+            <EditText
+                android:id="@+id/user_id_box"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/login_edoittext_frame"
+                android:hint="使用者帳號"
+                android:textColorHint="#8E8E8E"
+                android:paddingLeft="20dp"
+                android:textColor="#3c3c3c"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/password_box"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/login_edoittext_frame"
+                android:hint="密碼"
+                android:textColorHint="#8E8E8E"
+                android:paddingLeft="20dp"
+                android:textColor="#3c3c3c"
+                android:inputType="textPassword"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_id_box" />
+
+
+            <EditText
+                android:id="@+id/invite_code_box"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/login_edoittext_frame"
+                android:hint="邀請碼"
+                android:textColorHint="#8E8E8E"
+                android:paddingLeft="20dp"
+                android:textColor="#3c3c3c"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_box"/>
+
+            <Button
+                android:id="@+id/register_btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/login_confirm_btn_frame_disable"
+                android:text="註冊"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:enabled="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/invite_code_box"
+                app:layout_constraintVertical_bias="1.0"
+                tools:layout_editor_absoluteX="8dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/login_page_frame"
@@ -227,6 +278,8 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/login_edoittext_frame"
                 android:hint="請輸入信箱"
+                android:textColor="#3c3c3c"
+                android:textColorHint="#8E8E8E"
                 android:paddingLeft="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -239,136 +292,94 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/login_edoittext_frame"
-                android:hint="請輸入密碼"
+                android:hint="密碼"
+                android:inputType="textPassword"
                 android:paddingLeft="20dp"
+                android:textColorHint="#8E8E8E"
+                android:textColor="#3c3c3c"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/username_login" />
 
-            <ImageView
-                android:id="@+id/code_icon"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="8dp"
-                android:paddingLeft="20dp"
-                android:src="@drawable/code_sample"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toStartOf="@id/entry_code"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password_login" />
+<!--            <ImageView-->
+<!--                android:id="@+id/code_icon"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:src="@drawable/eye_invisible"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/password_login"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/password_login"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/password_login"-->
+<!--                android:layout_marginEnd="25dp"/>-->
 
-            <EditText
-                android:id="@+id/entry_code"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/login_edoittext_frame"
-                android:hint="請輸入認證碼"
-                android:paddingLeft="20dp"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/code_icon"
-                app:layout_constraintTop_toBottomOf="@+id/password_login" />
+
 
             <Button
                 android:id="@+id/login_btn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/login_confirm_btn_frame"
+                android:background="@drawable/login_confirm_btn_frame_disable"
                 android:text="登入"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:textColor="@color/white"
                 android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/forget_password"
+                app:layout_constraintTop_toBottomOf="@+id/password_login"
+                />
+
+            <TextView
+                android:id="@+id/forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="忘記密碼"
+                android:textColor="#FF756F"
+                app:layout_constraintTop_toBottomOf="@+id/login_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/entry_code" />
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <TextView
-        android:id="@+id/forget_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="忘記密碼"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        android:layout_marginTop="20dp"/>
-
-
-    <TextView
-        android:id="@+id/fast_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="快速登入"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-        app:layout_constraintTop_toBottomOf="@+id/forget_password"
-        android:layout_marginTop="20dp"/>
-
     <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/fast_txt"
-        app:layout_constraintEnd_toStartOf="@+id/fast_txt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fast_txt"
-        android:orientation="horizontal" />
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/fast_txt"
+        android:id="@+id/verify_letter_toast"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/get_confirm_letter_dialog"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fast_txt"
-        app:layout_constraintTop_toTopOf="@+id/fast_txt"
-        android:orientation="horizontal" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone"
+        >
 
+        <ImageView
+            android:id="@+id/verify_letter_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mail_toast_icon"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            />
 
-    <ImageView
-        android:id="@+id/fast_google_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/google_login"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/fast_txt" />
+        <TextView
+            android:id="@+id/verify_letter_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mail_fail"
+            android:textSize="14sp"
+            android:textColor="#3c3c3c"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"/>
 
-    <ImageView
-        android:id="@+id/fast_facebook_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/facebook_login"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout4"
-        app:layout_constraintStart_toEndOf="@+id/fast_google_icon"
-        app:layout_constraintTop_toBottomOf="@+id/fast_txt" />
-
+    </LinearLayout>
 
     <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="註冊即表示您同意 使用條款"
@@ -377,7 +388,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fast_google_icon" />
+        android:layout_marginBottom="50dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
