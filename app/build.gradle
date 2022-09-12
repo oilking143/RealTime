@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id "androidx.navigation.safeargs.kotlin"
+    id 'org.jetbrains.kotlin.android.extensions'
 
 }
 
@@ -15,7 +16,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-        buildConfigField 'String', 'BASE_URL', '"https://api.asiamedia.xyz"'
+        buildConfigField 'String', 'BASE_URL', '"https://api.minilive.xyz"'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -24,6 +25,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    androidExtensions {
+        experimental = true
     }
     compileOptions {
         sourceCompatibility "1.8"
@@ -68,16 +73,20 @@ dependencies {
     implementation("com.google.android.exoplayer:extension-rtmp:2.17.1")
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation "com.squareup.retrofit2:converter-moshi:2.6.0"
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.13.0"
+    implementation "com.squareup.moshi:moshi:1.13.0"
+    implementation 'com.github.aitsuki:SwipeMenuRecyclerView:2.1.5'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
     implementation 'androidx.navigation:navigation-runtime-ktx:2.4.2'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
     implementation 'com.github.pedroSG94.rtmp-rtsp-stream-client-java:rtplibrary:2.0.5'
     implementation 'org.greenrobot:eventbus:3.2.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.14.9'
     implementation "io.ktor:ktor-client-okhttp:1.5.3"
     implementation ('io.socket:socket.io-client:2.0.0') {
         exclude group: 'org.json', module: 'json'

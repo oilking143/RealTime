@@ -15,7 +15,7 @@ class WsClient(
         val request = Request.Builder()
             .addHeader("Authorization",GlobalData.loginToken.access_token)
             .addHeader("x-us-platform","2")
-            .url("wss://api.asiamedia.xyz/api/websocket?conn_id=/wss")
+            .url("wss://api.minilive.xyz/api/websocket?conn_id=/wss")
             .build()
         client.newWebSocket(request, object: WebSocketListener() {
             override fun onOpen(webSocket: WebSocket, response: Response) {

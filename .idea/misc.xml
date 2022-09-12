@@ -28,14 +28,21 @@
         <entry key="app/src/main/res/drawable-v24/hot_key_msg_btn_frame.xml" value="0.1895" />
         <entry key="app/src/main/res/drawable-v24/item_live_login_frame.xml" value="0.1895" />
         <entry key="app/src/main/res/drawable-v24/item_live_room_frame.xml" value="0.1895" />
+        <entry key="app/src/main/res/drawable-v24/item_msg_photo_frame.xml" value="0.145" />
         <entry key="app/src/main/res/drawable-v24/login_confirm_btn_frame_able.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable-v24/login_confirm_btn_frame_disable.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable-v24/personal_edittext_frame.xml" value="0.1895" />
+        <entry key="app/src/main/res/drawable-v24/post_edittext_frame.xml" value="0.145" />
+        <entry key="app/src/main/res/drawable-v24/text_photo_msg_bg_frame.xml" value="0.145" />
         <entry key="app/src/main/res/drawable-v24/trace_btn_bg.xml" value="0.1895" />
         <entry key="app/src/main/res/drawable/admin_personal_btn.xml" value="0.1895" />
         <entry key="app/src/main/res/drawable/banner_bg.xml" value="0.1895" />
         <entry key="app/src/main/res/drawable/bottom_dialog_content.xml" value="0.1895" />
+        <entry key="app/src/main/res/drawable/check_bg_selector.xml" value="0.145" />
+        <entry key="app/src/main/res/drawable/follow_btn.xml" value="0.1895" />
+        <entry key="app/src/main/res/drawable/fragment_content.xml" value="0.145" />
         <entry key="app/src/main/res/drawable/get_confirm_letter_dialog.xml" value="0.2085" />
+        <entry key="app/src/main/res/drawable/heart_frame.xml" value="0.145" />
         <entry key="app/src/main/res/drawable/item_live_room_bottom.xml" value="0.1895" />
         <entry key="app/src/main/res/drawable/live_page_search_frame.xml" value="0.1895" />
         <entry key="app/src/main/res/drawable/live_room_text.xml" value="0.1895" />
@@ -46,14 +53,33 @@
         <entry key="app/src/main/res/drawable/login_edoittext_frame.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/login_getconfirm_btn_frame_pass.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/personal_function_bg.xml" value="0.1895" />
+        <entry key="app/src/main/res/drawable/post_comment_frame.xml" value="0.145" />
+        <entry key="app/src/main/res/drawable/trace_btn_frame.xml" value="0.145" />
         <entry key="app/src/main/res/drawable/upper_shape.xml" value="0.1895" />
+        <entry key="app/src/main/res/layout/activity_liveroom.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2557291666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2557291666666667" />
+        <entry key="app/src/main/res/layout/activity_post.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/activity_watchroom.xml" value="0.14361702127659576" />
         <entry key="app/src/main/res/layout/board_fragment.xml" value="0.2557291666666667" />
+        <entry key="app/src/main/res/layout/bottom_share_dialog.xml" value="0.2484375" />
         <entry key="app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.2557291666666667" />
         <entry key="app/src/main/res/layout/bottom_sheet_dialog_content.xml" value="0.2557291666666667" />
+        <entry key="app/src/main/res/layout/childlayout.xml" value="0.2484375" />
+        <entry key="app/src/main/res/layout/fragment_comment.xml" value="0.24947916666666667" />
+        <entry key="app/src/main/res/layout/fragment_content.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/fragment_fan_follow.xml" value="0.2484375" />
+        <entry key="app/src/main/res/layout/fragment_password_change.xml" value="0.2484375" />
+        <entry key="app/src/main/res/layout/fragment_post.xml" value="0.2484375" />
         <entry key="app/src/main/res/layout/fragmrnt_edit_personal.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragmrnt_password_confirm.xml" value="0.2557291666666667" />
+        <entry key="app/src/main/res/layout/item_board_page.xml" value="0.24947916666666667" />
+        <entry key="app/src/main/res/layout/item_board_wall.xml" value="0.24947916666666667" />
+        <entry key="app/src/main/res/layout/item_comment_layout.xml" value="0.24947916666666667" />
+        <entry key="app/src/main/res/layout/item_fans_layout.xml" value="0.21031746031746032" />
+        <entry key="app/src/main/res/layout/item_gallery.xml" value="0.2484375" />
+        <entry key="app/src/main/res/layout/item_page.xml" value="0.24947916666666667" />
+        <entry key="app/src/main/res/layout/item_photo_wall.xml" value="0.24947916666666667" />
         <entry key="app/src/main/res/layout/itme_live_room_view.xml" value="0.2557291666666667" />
         <entry key="app/src/main/res/layout/live_fragment.xml" value="0.2557291666666667" />
         <entry key="app/src/main/res/layout/liveroom_fragment.xml" value="0.2557291666666667" />

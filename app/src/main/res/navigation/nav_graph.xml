@@ -10,54 +10,73 @@
         android:name="talent.jump.Fragment.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/main_fragment">
-        <action
-            android:id="@+id/action_mainFragment_to_liveRoomFragment"
-            app:destination="@id/liveRoomFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_watchRoomFragment"
-            app:destination="@id/watchRoomFragment" />
+        <argument
+            android:name="page_index"
+            app:argType="integer"
+            app:nullable="false"/>
         <action
             android:id="@+id/action_mainFragment_to_notStartPersonalFragment"
             app:destination="@id/notStartPersonalFragment" />
         <action
             android:id="@+id/action_mainFragment_to_personalEditFragment"
             app:destination="@id/personalEditFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/liveRoomFragment"
-        android:name="talent.jump.Fragment.LiveRoomFragment"
-        android:label="LiveRoomFragment"
-        tools:layout="@layout/liveroom_fragment">
-        <argument
-            android:name="pushstream"
-            app:argType="string"
-            app:nullable="false"/>
-    </fragment>
-    <fragment
-        android:id="@+id/watchRoomFragment"
-        android:name="talent.jump.Fragment.WatchRoomFragment"
-        android:label="WatchRoomFragment" >
-        <argument
-            android:name="pullstream"
-            app:argType="string"
-            app:nullable="false"/>
-        <argument
-            android:name="stId"
-            app:argType="string"
-            app:nullable="false"/>
-        <argument
-            android:name="name"
-            app:argType="string"
-            app:nullable="false"/>
+        <action
+            android:id="@+id/action_mainFragment_to_fanFollowerListFragment"
+            app:destination="@id/fanFollowerListFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_commentListFragment"
+            app:destination="@id/commentListFragment" />
     </fragment>
     <fragment
         android:id="@+id/notStartPersonalFragment"
         android:name="talent.jump.Fragment.NotStartPersonalFragment"
-        android:label="NotStartPersonalFragment" />
+        android:label="NotStartPersonalFragment" >
+
+        <argument
+            android:name="userId"
+            app:argType="string"
+            app:nullable="false"/>
+
+        <argument
+            android:name="profile_photo"
+            app:argType="string"
+            app:nullable="false"/>
+
+        <argument
+            android:name="nickname"
+            app:argType="string"
+            app:nullable="false"/>
+
+    </fragment>
     <fragment
         android:id="@+id/personalEditFragment"
         android:name="talent.jump.Fragment.PersonalEditFragment"
-        android:label="PersonalEditFragment" />
+        android:label="PersonalEditFragment" >
+        <action
+            android:id="@+id/action_personalEditFragment_to_passwordChangeFragment"
+            app:destination="@id/passwordChangeFragment" />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/passwordChangeFragment"
+        android:name="talent.jump.Fragment.PasswordChangeFragment"
+        android:label="PasswordChangeFragment" />
+    <fragment
+        android:id="@+id/fanFollowerListFragment"
+        android:name="talent.jump.Fragment.FanFollowerListFragment"
+        android:label="FanFollowerListFragment" />
+    <fragment
+        android:id="@+id/commentListFragment"
+        android:name="talent.jump.Fragment.CommentListFragment"
+        android:label="CommentListFragment" >
+
+        <argument
+            android:name="comment_id"
+            app:argType="string"
+            app:nullable="false"/>
+
+    </fragment>
 
 
 </navigation>

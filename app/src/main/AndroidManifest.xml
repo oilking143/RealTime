@@ -35,6 +35,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.MainActivity"/>
+        <activity android:name=".Activity.PostActivity"/>
+        <activity android:name=".Activity.WatchRoomActivity"/>
+        <activity android:name=".Activity.LiveRoomActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -6,7 +6,7 @@ class errorEvent internal constructor(errorMsg: String)  {
     init {
         this.errorMsg = errorMsg
     }
-    internal fun getInedx(): String {
+    internal fun getMsg(): String {
         return errorMsg
     }
 

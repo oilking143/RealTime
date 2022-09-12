@@ -82,6 +82,37 @@ class ApiTokenClient {
         return httpClientBuilder.protocols(Collections.singletonList(Protocol.HTTP_1_1)).build()
     }
 
+
+    fun Register(data: JsonObject)
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+
+            api.MembershipRegister(data).enqueue(object:retrofit2.Callback<RegisterResponse>{
+                override fun onResponse(
+                    call: Call<RegisterResponse>,
+                    response: Response<RegisterResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: RegisterResponse =response.body()!!
+                        EventBus.getDefault().post(RegisterEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+
+
+        }
+    }
+
     fun createStreams(data: JsonObject )
     {
         GlobalScope.launch(Dispatchers.IO) {
@@ -138,22 +169,74 @@ class ApiTokenClient {
     fun getSocketViewer(id:String,data: JsonObject )
     {
         GlobalScope.launch(Dispatchers.IO) {
-            api.getViewer(id,data).enqueue(object:retrofit2.Callback<String>{
+            api.getViewer(id,data).enqueue(object:retrofit2.Callback<ViewersResponse>{
                 override fun onResponse(
-                    call: Call<String>,
-                    response: Response<String>
+                    call: Call<ViewersResponse>,
+                    response: Response<ViewersResponse>
                 ) {
                     if(response.isSuccessful)
                     {
                         val data =response.body()
-                        EventBus.getDefault().post(SingleEvent(data!!))
+                        EventBus.getDefault().post(ViewerEvent(data!!))
                     }
                     else{
                         EventBus.getDefault().post(errorEvent(response.message().toString()))
                     }
                 }
 
-                override fun onFailure(call: Call<String>, t: Throwable) {
+                override fun onFailure(call: Call<ViewersResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+        }
+    }
+
+    fun giveHearts(id:String,data: JsonObject )
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+            api.giveheart(id,data).enqueue(object:retrofit2.Callback<heartResponse>{
+                override fun onResponse(
+                    call: Call<heartResponse>,
+                    response: Response<heartResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data =response.body()
+                        EventBus.getDefault().post(HeartEvent(data!!))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<heartResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+        }
+    }
+
+    fun muteuser(id:String,data: JsonObject )
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+            api.muteUser(id,data).enqueue(object:retrofit2.Callback<muteResponse>{
+                override fun onResponse(
+                    call: Call<muteResponse>,
+                    response: Response<muteResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data =response.body()
+                        EventBus.getDefault().post(MuteEvent(data!!))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<muteResponse>, t: Throwable) {
                     EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
                 }
 
@@ -211,6 +294,186 @@ class ApiTokenClient {
                 }
 
             })
+        }
+    }
+
+    fun postMedia(files : MultipartBody.Part)
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+
+            api.PostMedias(files).enqueue(object:retrofit2.Callback<PostmediaResponse>{
+                override fun onResponse(
+                    call: Call<PostmediaResponse>,
+                    response: Response<PostmediaResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: PostmediaResponse =response.body()!!
+                        EventBus.getDefault().post(PostMediaEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<PostmediaResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent(call.request().toString()))
+                }
+
+            })
+
+
+        }
+    }
+
+    fun createPost(data: JsonObject)
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+
+            api.createPost(data).enqueue(object:retrofit2.Callback<CreatePostResponse>{
+                override fun onResponse(
+                    call: Call<CreatePostResponse>,
+                    response: Response<CreatePostResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: CreatePostResponse =response.body()!!
+                        EventBus.getDefault().post(CreatePostEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<CreatePostResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent(call.request().toString()))
+                }
+
+            })
+
+
+        }
+    }
+
+    fun UpdatePassword(data: JsonObject)
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+
+            api.updateOldPassword(data).enqueue(object:retrofit2.Callback<UpdateResponse>{
+                override fun onResponse(
+                    call: Call<UpdateResponse>,
+                    response: Response<UpdateResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: UpdateResponse =response.body()!!
+                        EventBus.getDefault().post(UpdateEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<UpdateResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+
+
+        }
+    }
+
+    fun UpdateUser(data: JsonObject)
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+
+            api.updateUser(data).enqueue(object:retrofit2.Callback<UpdateResponse>{
+                override fun onResponse(
+                    call: Call<UpdateResponse>,
+                    response: Response<UpdateResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: UpdateResponse =response.body()!!
+                        EventBus.getDefault().post(UpdateEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<UpdateResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+
+
+        }
+    }
+
+    fun DeleteComment(id: String)
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+
+            api.deleteComments(id).enqueue(object:retrofit2.Callback<DeleteResponse>{
+                override fun onResponse(
+                    call: Call<DeleteResponse>,
+                    response: Response<DeleteResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: DeleteResponse =response.body()!!
+                        EventBus.getDefault().post(DeletePostEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<DeleteResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+
+
+        }
+    }
+
+    fun CreateComment(data: JsonObject)
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+
+            api.createComments(data).enqueue(object:retrofit2.Callback<CommentResponse>{
+                override fun onResponse(
+                    call: Call<CommentResponse>,
+                    response: Response<CommentResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: CommentResponse =response.body()!!
+                        EventBus.getDefault().post(CreateCommentEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<CommentResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+
+
         }
     }
 
@@ -272,6 +535,7 @@ class ApiTokenClient {
         }
     }
 
+
     fun getMe()
     {
         GlobalScope.launch(Dispatchers.IO) {
@@ -284,7 +548,7 @@ class ApiTokenClient {
                     if(response.isSuccessful)
                     {
                         val data: UserResponse =response.body()!!
-                        EventBus.getDefault().post(GetUserEvent(data))
+                        EventBus.getDefault().post(GetMeEvent(data))
                     }
                     else{
                         EventBus.getDefault().post(errorEvent(response.message().toString()))
@@ -301,19 +565,164 @@ class ApiTokenClient {
         }
     }
 
+    fun getFans(page:String,per_page:String)
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+            api.getFans(page,per_page).enqueue(object:retrofit2.Callback<FansListResponse>{
+                override fun onResponse(
+                    call: Call<FansListResponse>,
+                    response: Response<FansListResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: FansListResponse =response.body()!!
+                        EventBus.getDefault().post(GetFansEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<FansListResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+
+
+        }
+    }
+
+    fun getListPostComments(id:String,before_id:String,after_id:String,number:String)
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+            api.getListPosts(id,before_id,after_id,number).enqueue(object:retrofit2.Callback<ListPostCommentResponse>{
+                override fun onResponse(
+                    call: Call<ListPostCommentResponse>,
+                    response: Response<ListPostCommentResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: ListPostCommentResponse =response.body()!!
+                        EventBus.getDefault().post(GetCommentListEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<ListPostCommentResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+        }
+    }
+
+    fun getFollows(page:String,per_page:String)
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+            api.getFollows(page,per_page).enqueue(object:retrofit2.Callback<FollowersResponse>{
+                override fun onResponse(
+                    call: Call<FollowersResponse>,
+                    response: Response<FollowersResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: FollowersResponse =response.body()!!
+                        EventBus.getDefault().post(GetFollowerEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<FollowersResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+
+
+        }
+    }
+
+
+    fun getWallet()
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+            api.getwallet().enqueue(object:retrofit2.Callback<WalletResponse>{
+                override fun onResponse(
+                    call: Call<WalletResponse>,
+                    response: Response<WalletResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: WalletResponse =response.body()!!
+                        EventBus.getDefault().post(GetWalletEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<WalletResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+
+
+        }
+    }
+
+
+    fun getTokens()
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+            api.getTokens().enqueue(object:retrofit2.Callback<TokenResponse>{
+                override fun onResponse(
+                    call: Call<TokenResponse>,
+                    response: Response<TokenResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: TokenResponse =response.body()!!
+                        EventBus.getDefault().post(GetTokenEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+
+
+        }
+    }
+
 
     fun getListStream(page:String,per_page:String,type:String,version:String)
     {
         GlobalScope.launch(Dispatchers.IO) {
 
-            api.getLiveStream(page,per_page,type,version).enqueue(object:retrofit2.Callback<StreamListResponse>{
+            api.getLiveStream(page,per_page,type,version).enqueue(object:retrofit2.Callback<LiveStreamListResponse>{
                 override fun onResponse(
-                    call: Call<StreamListResponse>,
-                    response: Response<StreamListResponse>
+                    call: Call<LiveStreamListResponse>,
+                    response: Response<LiveStreamListResponse>
                 ) {
                     if(response.isSuccessful)
                     {
-                        val data: StreamListResponse =response.body()!!
+                        val data: LiveStreamListResponse =response.body()!!
                         EventBus.getDefault().post(GetStreamEvent(data))
                     }
                     else{
@@ -321,7 +730,66 @@ class ApiTokenClient {
                     }
                 }
 
-                override fun onFailure(call: Call<StreamListResponse>, t: Throwable) {
+                override fun onFailure(call: Call<LiveStreamListResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+
+
+        }
+    }
+
+    fun getPostList(user_id:String,number:String,before_id:String)
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+            api.getPosts(user_id,number,before_id).enqueue(object:retrofit2.Callback<PostListResponse>{
+                override fun onResponse(
+                    call: Call<PostListResponse>,
+                    response: Response<PostListResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: PostListResponse =response.body()!!
+                        EventBus.getDefault().post(GetPostListEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<PostListResponse>, t: Throwable) {
+                    EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
+                }
+
+            })
+
+
+        }
+    }
+
+
+    fun getSearch(query:String)
+    {
+        GlobalScope.launch(Dispatchers.IO) {
+
+            api.getSearch(query).enqueue(object:retrofit2.Callback<SearchResponse>{
+                override fun onResponse(
+                    call: Call<SearchResponse>,
+                    response: Response<SearchResponse>
+                ) {
+                    if(response.isSuccessful)
+                    {
+                        val data: SearchResponse =response.body()!!
+                        EventBus.getDefault().post(GetSearchEvent(data))
+                    }
+                    else{
+                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                    }
+                }
+
+                override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                     EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
                 }
 

@@ -10,13 +10,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import io.socket.client.Socket
 import talent.jump.R
 import talent.jump.databinding.MainFragmentBinding
+import talent.jump.model.ApiTokenClient
 
 
 class MainFragment: BaseFragment() ,RadioGroup.OnCheckedChangeListener{
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var mSocket:Socket
-
+    private var apiclient= ApiTokenClient()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,7 +36,6 @@ class MainFragment: BaseFragment() ,RadioGroup.OnCheckedChangeListener{
         binding.livePageSlider.isUserInputEnabled = false
         binding.livePageSlider.adapter=LivePagerSlideAdapter(this)
         binding.bottomRadio.setOnCheckedChangeListener(this)
-
     }
 
 

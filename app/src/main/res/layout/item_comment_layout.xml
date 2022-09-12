@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.aitsuki.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    app:autoClose="true"
+    app:designer="@string/classic_designer"
+    app:preview="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        >
+        <ImageView
+            android:id="@+id/fans_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/fans_icon"
+            />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="用戶名稱"
+            android:textColor="#332222"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@+id/fans_icon"
+            app:layout_constraintTop_toTopOf="@+id/fans_icon"
+            />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="留言內容你好安安給約嗎？"
+            android:textColor="#868686"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@+id/fans_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/fans_icon"
+            />
+
+
+        <TextView
+            android:id="@+id/time_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textColor="#868686"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/description"
+            app:layout_constraintEnd_toStartOf="@+id/day"
+            app:layout_constraintTop_toTopOf="@+id/name"
+            />
+
+        <TextView
+            android:id="@+id/day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:text="  天前"
+            android:textColor="#868686"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/name" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:orientation="vertical"
+            android:background="#73959595"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        >
+        <LinearLayout
+            android:id="@+id/delete_msg"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="#E54D4D"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon_delete_comment"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/share_msg"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="#42D248"
+
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon_feedback_comment"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</com.aitsuki.swipe.SwipeLayout>

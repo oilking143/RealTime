@@ -11,7 +11,7 @@ data class UserData(
     val nickname: String,
     val profile_photo: String,
     val reserve_at: Int,
-    val stream_auth: StreamAuthX,
+    val stream_auth: UserStreamAuth,
     val type: Int,
     val update_at: Long,
     val username: String

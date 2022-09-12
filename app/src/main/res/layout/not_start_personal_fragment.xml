@@ -22,7 +22,7 @@
         android:layout_marginTop="40dp"
         android:text="live9527"
         android:textSize="20dp"
-        android:textColor="#3A3A3A"
+        android:textColor="#868686"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -140,6 +140,7 @@
 
 
     <LinearLayout
+        android:id="@+id/follow_btn"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"

@@ -254,7 +254,7 @@ class PasswordConfirmFragment:Fragment() {
 
         if(event!!.GetLoginData().status)
         {
-            val intent = Intent(activity, MainActivity::class.java)
+            val intent = Intent(activity, LoginEvent::class.java)
             startActivity(intent)
         }
 

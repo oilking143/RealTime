@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mother_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:alpha="50"
     >
+
     <com.google.android.exoplayer2.ui.PlayerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/surfaceView"
-        app:resize_mode="fill"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/push_msg"
+        app:layout_constraintTop_toTopOf="parent"
+        app:resize_mode="fill" />
     <FrameLayout
         android:id="@+id/bg_img"
         android:layout_width="wrap_content"
@@ -26,6 +29,7 @@
         app:layout_constraintTop_toBottomOf="parent">
 
         <ImageView
+            android:id="@+id/bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/bg_img"
@@ -34,6 +38,7 @@
             android:visibility="gone"
             />
         <ImageView
+            android:id="@+id/bg_frame"
             android:src="@drawable/bg_img_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -58,9 +63,10 @@
         app:layout_constraintTop_toTopOf="@+id/bg_img" />
 
     <TextView
+        android:id="@+id/trace_title"
         android:layout_width="60dp"
         android:layout_height="26dp"
-        android:background="@drawable/live_room_text"
+        android:background="@drawable/trace_btn_frame"
         android:text="追蹤+"
         android:textStyle="bold"
         android:gravity="center"
@@ -74,14 +80,14 @@
         />
 
     <EditText
-        android:id="@+id/viewer"
-        android:layout_width="100dp"
+        android:id="@+id/room_name"
+        android:layout_width="wrap_content"
         android:layout_height="34dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/live_room_text_box"
         android:enabled="false"
         android:paddingStart="10dp"
-        android:text="98998"
+        android:text="房名:"
         android:textColor="#F2F2F2"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/hostname"
@@ -97,7 +103,7 @@
         app:layout_constraintStart_toStartOf="@+id/bg_img"
         app:layout_constraintEnd_toEndOf="@+id/bg_img"
         app:layout_constraintBottom_toTopOf="@+id/message_typer"
-        app:layout_constraintTop_toBottomOf="@+id/viewer" />
+       />
 
 
     <EditText
@@ -126,6 +132,7 @@
 
 ㄅ
     <ImageView
+        android:id="@+id/gift"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/gift_frame"
@@ -135,107 +142,108 @@
         app:layout_constraintStart_toEndOf="@+id/message_typer" />
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/push_msg"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="5dp"
         app:layout_constraintStart_toStartOf="@+id/push_msg">
 
         <LinearLayout
             android:id="@+id/hot_key_morning"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
-            android:gravity="center"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
             android:background="@drawable/hot_key_msg_btn_frame"
-            >
+            android:gravity="center">
+
             <TextView
+                android:id="@+id/text_btn_morning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:text="早安"
                 android:textColor="#FF756F"
-                />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/hot_key_afternoon"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
             android:background="@drawable/hot_key_msg_btn_frame"
-            >
+            android:gravity="center">
+
             <TextView
+                android:id="@+id/text_btn_afternoon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:text="午安"
                 android:textColor="#FF756F"
-                />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/hot_key_evening"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
             android:background="@drawable/hot_key_msg_btn_frame"
-            >
+            android:gravity="center">
+
             <TextView
+                android:id="@+id/text_btn_evening"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:text="晚安"
                 android:textColor="#FF756F"
-                />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/hot_key_hi"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
             android:background="@drawable/hot_key_msg_btn_frame"
-            >
+            android:gravity="center">
+
             <TextView
+                android:id="@+id/text_btn_hi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:text="安安"
                 android:textColor="#FF756F"
-                />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/hot_key_hellow"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
             android:background="@drawable/hot_key_msg_btn_frame"
-            >
+            android:gravity="center">
+
             <TextView
+                android:id="@+id/text_btn_hello"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:text="安安"
                 android:textColor="#FF756F"
-                />
+                android:textSize="14sp" />
         </LinearLayout>
 
 
@@ -248,8 +256,8 @@
         android:hint="打個招呼吧"
         android:background="@drawable/live_room_text_box"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="20dp"
         android:paddingStart="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -264,5 +272,54 @@
         app:layout_constraintBottom_toBottomOf="@+id/push_msg"
         app:layout_constraintEnd_toEndOf="@+id/push_msg"
         app:layout_constraintTop_toTopOf="@+id/push_msg" />
+
+
+    <LinearLayout
+        android:id="@+id/heart_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/heart_frame"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/push_msg"
+        app:layout_constraintStart_toEndOf="@+id/push_msg"
+        android:layout_marginLeft="5dp">
+
+        <ImageView
+            android:id="@+id/ht_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_heart"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/animator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_heart"
+        app:layout_constraintEnd_toEndOf="@+id/heart_btn"
+        app:layout_constraintStart_toStartOf="@+id/heart_btn"
+        app:layout_constraintTop_toTopOf="@id/heart_btn"
+        app:layout_constraintBottom_toBottomOf="@id/heart_btn"/>
+
+
+    <LinearLayout
+        android:id="@+id/gift_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gift_frame"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/push_msg"
+        app:layout_constraintStart_toEndOf="@+id/heart_btn"
+        android:layout_marginLeft="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_gift"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

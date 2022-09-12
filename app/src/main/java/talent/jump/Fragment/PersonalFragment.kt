@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -14,26 +15,31 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import java.io.ByteArrayOutputStream
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.JsonObject
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import talent.jump.Activity.LiveRoomActivity
 import talent.jump.Events.AuthRegisterEvent
 import talent.jump.Events.CreateStreamEvent
-import talent.jump.Events.GetStreamEvent
-import talent.jump.Events.GetUserEvent
+import talent.jump.Events.GetMeEvent
+import talent.jump.Events.GetPostListEvent
+import talent.jump.GlobalData
 import talent.jump.R
-import talent.jump.data.AuthRegistResponse
 import talent.jump.databinding.PersonalFragmentBinding
 import talent.jump.model.ApiTokenClient
 
@@ -118,30 +124,12 @@ class PersonalFragment: BaseFragment(){
 
         binding.editBtn.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_personalEditFragment)
-
         }
 
         binding.startLive.setOnClickListener {
-            /**
-             *
-             *     "display_name": "Oiltest",
-            "description": "油王直播",
-            "type_id": 1,
-            "private": true,
-            "pass_code": "abc123",
-            "status": 1,
-            "living_at": 0
-             */
 
-            val createJson=JsonObject()
-            createJson.addProperty("display_name","${binding.userName.text}")
-            createJson.addProperty("description","${binding.description.text}")
-            createJson.addProperty("type_id",1)
-            createJson.addProperty("private",true)
-            createJson.addProperty("pass_code","abc123")
-            createJson.addProperty("status",1)
-            createJson.addProperty("living_at",0)
-            apiclient.createStreams(createJson)
+            val intent = Intent(activity, LiveRoomActivity::class.java)
+            startActivity(intent)
 
         }
 
@@ -149,23 +137,11 @@ class PersonalFragment: BaseFragment(){
 
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun CreateStreamEvent(event: CreateStreamEvent?) {
-
-        if(event!!.GetStreamResponse().status)
-        {
-            val action =  MainFragmentDirections.actionMainFragmentToLiveRoomFragment(
-                event!!.GetStreamResponse().data.push
-            )
-            findNavController().navigate(action)
-        }
-
-    }
 
 
     @RequiresApi(Build.VERSION_CODES.O)
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onGetUserEvent(event: GetUserEvent?) {
+    fun onGetUserEvent(event: GetMeEvent?) {
 
         if(event!!.GetUserResponse().status)
         {
@@ -182,22 +158,28 @@ class PersonalFragment: BaseFragment(){
                     .apply(options)
                     .into(binding.photoView)
             };
-
             binding.userName.text=data.nickname
-
+            binding.description.text = data.introduction
+            binding.fansNum.text="${data.fans_count}"
+            binding.followNum.text="${data.follows_count}"
             if(data.stream_auth.status!=0)
             {
                 binding.postAction.visibility=View.VISIBLE
                 binding.startLive.visibility=View.VISIBLE
                 binding.becomAdmin.visibility=View.GONE
-                binding.nextTime.visibility=View.VISIBLE
             }
             else
             {
                 binding.postAction.visibility=View.GONE
                 binding.startLive.visibility=View.GONE
                 binding.becomAdmin.visibility=View.VISIBLE
-                binding.nextTime.visibility=View.GONE
+            }
+
+            binding.fansBtn.setOnClickListener {
+
+                findNavController().navigate(R.id.action_mainFragment_to_fanFollowerListFragment)
+
+
             }
 
         }
@@ -252,6 +234,24 @@ class PersonalFragment: BaseFragment(){
                         .apply(options)
                         .into(binding.photoView)
                 }
+
+                Glide.with(this)
+                    .asBitmap()
+                    .load(data!!.data)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(object : CustomTarget<Bitmap?>() {
+
+                        override fun onLoadCleared(@Nullable placeholder: Drawable?) {}
+                        override fun onResourceReady(
+                            resource: Bitmap,
+                            transition: Transition<in Bitmap?>?
+                        ) {
+                            val photoJson=JsonObject()
+                            photoJson.addProperty("data",encodeImage(resource))
+                            apiclient.upLoadPhoto(photoJson)
+                        }
+                    })
+
             }
 
             }

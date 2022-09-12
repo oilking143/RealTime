@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +19,12 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import talent.jump.Activity.MainActivity
-import talent.jump.Events.GetVerifyMailEvent
-import talent.jump.Events.LoginEvent
-import talent.jump.Events.RegisterEvent
+import talent.jump.Events.*
 import talent.jump.GlobalData
 import talent.jump.R
-import talent.jump.databinding.WindowFragmentBinding
 import talent.jump.model.ApiClient
+import talent.jump.databinding.WindowFragmentBinding
+import talent.jump.model.ApiTokenClient
 import talent.jump.utility.CodeUtilites
 
 class WindowFragment: BaseFragment()  {
@@ -81,12 +81,11 @@ class WindowFragment: BaseFragment()  {
             if(binding.emailEnterBox.text.isNotEmpty())
             {
 
-
                 val VerifyJson= JsonObject()
                 VerifyJson.addProperty("email","${binding.emailEnterBox.text}")
                 apiClient.verifyMail(VerifyJson)
 
-                object : CountDownTimer(3000, 1000) {
+                object : CountDownTimer(1000, 1000) {
 
                     override fun onFinish() {
                         binding.verifyLetterToast.visibility=View.GONE
@@ -210,10 +209,10 @@ class WindowFragment: BaseFragment()  {
 
         }
 
-        val codwUtility=CodeUtilites().getInstance()
-
-
-
+//        val codwUtility=CodeUtilites().getInstance()
+//
+//
+//
 //        binding.codeIcon.setImageBitmap(codwUtility!!.createBitmap())
 //
 //        binding.codeIcon.setOnClickListener {
@@ -266,8 +265,10 @@ class WindowFragment: BaseFragment()  {
 
             binding.nextstepBtn.setOnClickListener {
 
-              binding.registerPage2Frame.visibility=View.VISIBLE
-              binding.registerPageFrame.visibility=View.GONE
+                val verifyCodeJson= JsonObject()
+                verifyCodeJson.addProperty("email",binding.emailEnterBox.text.toString())
+                verifyCodeJson.addProperty("code",binding.verifyCode.text.toString().trim())
+                apiClient.verifyMailCode(verifyCodeJson)
             }
         }
         else
@@ -310,8 +311,7 @@ class WindowFragment: BaseFragment()  {
                 RegisterJson.addProperty("username","${binding.userIdBox.text}")
                 RegisterJson.addProperty("nickname","${binding.nickName.text}")
                 RegisterJson.addProperty("password","${binding.passwordBox.text}")
-                RegisterJson.addProperty("verified_code","${binding.verifyCode.text}")
-                apiClient.Register(RegisterJson)
+                ApiTokenClient().Register(RegisterJson)
             }
         }
         else
@@ -342,6 +342,40 @@ class WindowFragment: BaseFragment()  {
             startActivity(intent)
         }
 
+
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onVerifyMailCodeEvent(event: GetVerifyMailCodeEvent?) {
+
+        Log.d("eventCode",event!!.GetVerifyMailCodeData().data.access_token)
+        if(event!!.GetVerifyMailCodeData().status)
+        {
+            val data=event!!.GetVerifyMailCodeData().data
+            GlobalData.loginToken=data
+            GlobalData.access_token=data.access_token
+            GlobalData.refresh_token=data.refresh_token
+            GlobalData.access_token=data.token_type
+            GlobalData.expire_at=data.expire_at
+            binding.registerPage2Frame.visibility=View.VISIBLE
+            binding.registerPageFrame.visibility=View.GONE
+        }
+        else
+        {
+            object : CountDownTimer(3000, 1000) {
+
+                override fun onFinish() {
+                    binding.verifyLetterToast.visibility=View.GONE
+                }
+
+                override fun onTick(millisUntilFinished: Long) {
+                    binding.verifyLetterToast.visibility=View.VISIBLE
+                    binding.verifyLetterInfo.text=resources.getString(R.string.access_fail)
+                    binding.verifyLetterIcon.setImageResource(R.drawable.mail_fail)
+                }
+            }.start()
+        }
 
     }
 
@@ -398,6 +432,32 @@ class WindowFragment: BaseFragment()  {
             }.start()
         }
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onErrorEvent(event: errorEvent?) {
+        object : CountDownTimer(3000, 1000) {
+
+            override fun onFinish() {
+                binding.verifyLetterToast.visibility=View.GONE
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+                binding.verifyLetterToast.visibility=View.VISIBLE
+               when(event!!.getMsg())
+               {
+                   "409"->{
+                       binding.verifyLetterInfo.text="本帳號已經申請過了!"
+
+                   }
+
+                   else->{
+
+                   }
+               }
+                binding.verifyLetterIcon.setImageResource(R.drawable.mail_fail)
+            }
+        }.start()
     }
 
 

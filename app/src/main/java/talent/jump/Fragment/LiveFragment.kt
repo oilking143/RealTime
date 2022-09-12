@@ -1,11 +1,13 @@
 package talent.jump.Fragment
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,10 +30,19 @@ import okhttp3.OkHttpClient
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import talent.jump.Activity.LiveRoomActivity
+import talent.jump.Activity.MainActivity
+import talent.jump.Activity.PostActivity
+import talent.jump.Activity.WatchRoomActivity
+import talent.jump.Events.GetSearchEvent
 import talent.jump.Events.GetStreamEvent
+import talent.jump.Events.errorEvent
+import talent.jump.GlobalData
 import talent.jump.R
-import talent.jump.data.StreamListData
-import talent.jump.data.StreamLists
+import talent.jump.data.DataLiveStreamList
+import talent.jump.data.LivadataLists
+import talent.jump.data.LiveData
+import talent.jump.data.SearchStream
 import talent.jump.databinding.LiveFragmentBinding
 import talent.jump.model.ApiTokenClient
 
@@ -40,7 +51,7 @@ class LiveFragment: BaseFragment() {
     private var _binding: LiveFragmentBinding? = null
     private val binding get() = _binding!!
     private var apiclient= ApiTokenClient()
-    private lateinit var data: StreamListData
+    private lateinit var data: DataLiveStreamList
     private var mClient= OkHttpClient()
 
 
@@ -67,7 +78,7 @@ class LiveFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        apiclient.getListStream("1","20","0","")
+        apiclient.getListStream("1","10","","")
 
         val imgList:ArrayList<Int> = ArrayList()
         imgList.add(R.drawable.forest)
@@ -119,7 +130,7 @@ class LiveFragment: BaseFragment() {
             binding.musicTitleBtn.textSize=resources.getDimension(R.dimen.select_radio)
             binding.musicTitleBtn.setTypeface(null, Typeface.BOLD)
 
-            val localdata= mutableListOf<StreamLists>()
+            val localdata= mutableListOf<LivadataLists>()
             for(i in 0 until data.lists.size)
             {
                 if(data.lists[i].type==1)
@@ -138,7 +149,7 @@ class LiveFragment: BaseFragment() {
             binding.gameTitleBtn.textSize=resources.getDimension(R.dimen.select_radio)
             binding.gameTitleBtn.setTypeface(null, Typeface.BOLD)
 
-            val localdata= mutableListOf<StreamLists>()
+            val localdata= mutableListOf<LivadataLists>()
             for(i in 0 until data.lists.size)
             {
                 if(data.lists[i].type==2)
@@ -157,7 +168,7 @@ class LiveFragment: BaseFragment() {
             binding.talkTitleBtn.textSize=resources.getDimension(R.dimen.select_radio)
             binding.talkTitleBtn.setTypeface(null, Typeface.BOLD)
 
-            val localdata= mutableListOf<StreamLists>()
+            val localdata= mutableListOf<LivadataLists>()
             for(i in 0 until data.lists.size)
             {
                 if(data.lists[i].type==3)
@@ -176,27 +187,39 @@ class LiveFragment: BaseFragment() {
 
         binding.searchBox.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                val localdata= mutableListOf<StreamLists>()
-                for(i in 0 until data.lists.size)
-                {
-                    if(data.lists[i].info.display_name.contains(s.toString()))
-                    {
-                        localdata.add(data.lists[i])
-                    }
-                }
+//                val localdata= mutableListOf<LivadataLists>()
+//                for(i in 0 until data.lists.size)
+//                {
+//                    if(data.lists[i].info.display_name.contains(s.toString()))
+//                    {
+//                        localdata.add(data.lists[i])
+//                    }
+//                }
+//
+//                val gridLayoutManager= GridLayoutManager(context,2)
+//                binding.liveRoomRecycler.layoutManager = gridLayoutManager
+//                binding.liveRoomRecycler.adapter=LiveRoomAdapter(localdata)
+//
+//                if(s!!.isNotEmpty())
+//                {
+//                    binding.searchIcon.visibility=View.GONE
+//                }
+//                else
+//                {
+//                    binding.searchIcon.visibility=View.VISIBLE
+//                }
 
-                val gridLayoutManager= GridLayoutManager(context,2)
-                binding.liveRoomRecycler.layoutManager = gridLayoutManager
-                binding.liveRoomRecycler.adapter=LiveRoomAdapter(localdata)
-
-                if(s!!.isNotEmpty())
+                if(s!!.isEmpty())
                 {
-                    binding.searchIcon.visibility=View.GONE
+                    apiclient.getListStream("1","10","0","")
+
                 }
                 else
                 {
-                    binding.searchIcon.visibility=View.VISIBLE
+                    apiclient.getSearch("$s")
+
                 }
+
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -208,7 +231,8 @@ class LiveFragment: BaseFragment() {
 
         binding.startPlayBtn.setOnClickListener {
 
-            findNavController().navigate(R.id.action_mainFragment_to_liveRoomFragment)
+            val intent = Intent(activity, LiveRoomActivity::class.java)
+            startActivity(intent)
         }
 
 
@@ -235,14 +259,43 @@ class LiveFragment: BaseFragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onGetStreamEvent(event: GetStreamEvent?) {
-        if(event!!.GetStreamResponse().status)
+        if(event!!.GetLiveStreamList().status)
         {
-             data=event!!.GetStreamResponse().data
+             data= event.GetLiveStreamList().data
             val gridLayoutManager= GridLayoutManager(context,2)
             binding.liveRoomRecycler.layoutManager = gridLayoutManager
             var sort=data.lists.sortedByDescending { it.info.viewer_count}
-            binding.liveRoomRecycler.adapter=LiveRoomAdapter(sort)
+            var clean= mutableListOf<LivadataLists>()
+            for(i in sort.indices)
+            {
+                if(sort[i].type==1)
+                {
+                    clean.add(sort[i])
+                }
+            }
+            binding.liveRoomRecycler.adapter=LiveRoomAdapter(clean)
         }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onGetSearchEvent(event: GetSearchEvent?) {
+        if(event!!.GetSearchList().status)
+        {
+
+            val searchdata=event!!.GetSearchList().data
+            val gridLayoutManager= GridLayoutManager(context,2)
+            binding.liveRoomRecycler.layoutManager = gridLayoutManager
+            var sort=searchdata.streams.sortedByDescending { it.viewer_count}
+            binding.liveRoomRecycler.adapter=SearchAdapter(sort)
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onErrorEvent(event: errorEvent?) {
+
+        Log.d("errorMsg",event!!.getMsg())
+
     }
 
 
@@ -273,7 +326,7 @@ class LiveFragment: BaseFragment() {
         var ivPager: ImageView = itemView.findViewById(R.id.ivPager)
     }
 
-    inner class LiveRoomAdapter(var list:List<StreamLists>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+    inner class LiveRoomAdapter(var list:List<LivadataLists>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         override fun onCreateViewHolder(parent: ViewGroup, p1: Int): RecyclerView.ViewHolder {
             return ViewHolder(
                 LayoutInflater.from(context).inflate(R.layout.itme_live_room_view, parent, false)
@@ -291,16 +344,30 @@ class LiveFragment: BaseFragment() {
             holder.LiveRoomFrame.setOnClickListener {
                 val pullstream=list[position].info.pull
                 val stId=list[position].info.id
-                val name=list[position].info.display_name
-                val action =  MainFragmentDirections.actionMainFragmentToWatchRoomFragment(pullstream,stId,name)
-                findNavController().navigate(action)
+                val roomname=list[position].info.display_name
+                val username=list[position].info.owner.nickname
+                val private=list[position].info.private
+
+
+                val intent = Intent(activity, WatchRoomActivity::class.java)
+                intent.putExtra("pullstream",list[position].info.pull)
+                intent.putExtra("stId",list[position].info.id)
+                intent.putExtra("roomname",list[position].info.display_name)
+                intent.putExtra("username",list[position].info.owner.nickname)
+                intent.putExtra("private",list[position].info.private)
+                startActivity(intent)
             }
         }
          else
         {
             holder.livingMark.visibility=View.GONE
             holder.LiveRoomFrame.setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_notStartPersonalFragment)
+                val userId=list[position].info.owner.id
+                val profile_photo=list[position].info.owner.profile_photo
+                val nickname=list[position].info.owner.nickname
+
+                val action = MainFragmentDirections.actionMainFragmentToNotStartPersonalFragment(userId,profile_photo,nickname)
+                    findNavController().navigate(action)
 
             }
         }
@@ -342,5 +409,84 @@ class LiveFragment: BaseFragment() {
         }
 
     }
+
+
+    inner class SearchAdapter(var list:List<SearchStream>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+        override fun onCreateViewHolder(parent: ViewGroup, p1: Int): RecyclerView.ViewHolder {
+            return ViewHolder(
+                LayoutInflater.from(context).inflate(R.layout.itme_live_room_view, parent, false)
+            )
+        }
+
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            var holder=holder as ViewHolder
+
+
+
+            if(list[position].status==1)
+            {
+                holder.livingMark.visibility=View.VISIBLE
+                holder.LiveRoomFrame.setOnClickListener {
+                    val pullstream=list[position].pull
+                    val stId=list[position].id
+                    val username=list[position].owner.nickname
+                    val roomname=list[position].display_name
+                    val private=list[position].private
+                    val intent = Intent(activity, WatchRoomActivity::class.java)
+                    intent.putExtra("pullstream",list[position].pull)
+                    intent.putExtra("stId",list[position].id)
+                    intent.putExtra("roomname",list[position].display_name)
+                    intent.putExtra("username",list[position].owner.nickname)
+                    intent.putExtra("private",list[position].private)
+                    startActivity(intent)
+                }
+            }
+            else
+            {
+                holder.livingMark.visibility=View.GONE
+                holder.LiveRoomFrame.setOnClickListener {
+                    findNavController().navigate(R.id.action_mainFragment_to_notStartPersonalFragment)
+
+                }
+            }
+
+            val options: RequestOptions = RequestOptions()
+                .transform(MultiTransformation(CenterCrop(), CircleCrop()))
+                .placeholder(R.drawable.forest)
+                .error(R.mipmap.ic_launcher)
+                .priority(Priority.NORMAL)
+
+            context?.let {
+                Glide.with(it)
+                    .load(list[position].owner.profile_photo)
+                    .apply(options)
+                    .into(holder.roomphoto)
+            }
+
+
+            holder.tuberName.text=list[position].display_name
+            holder.watch.text="${list[position].viewer_count}"
+
+
+        }
+
+
+        override fun getItemCount(): Int {
+            return list.size
+        }
+
+        inner class ViewHolder(itemView: View) :
+            RecyclerView.ViewHolder(itemView) {
+
+            val LiveRoomFrame=itemView.findViewById<ConstraintLayout>(R.id.liveroom_frame)
+            val livingMark=itemView.findViewById<ImageView>(R.id.living_mark)
+            val roomphoto=itemView.findViewById<ImageView>(R.id.room_photo)
+            val tuberName=itemView.findViewById<TextView>(R.id.tubername)
+            val watch=itemView.findViewById<TextView>(R.id.watch)
+
+        }
+
+    }
+
 
 }

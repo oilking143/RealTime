@@ -2,10 +2,9 @@ package talent.jump.Fragment
 
 import android.util.Log
 import androidx.fragment.app.Fragment
-import java.lang.StringBuilder
 import java.math.BigInteger
 import java.security.MessageDigest
-import java.util.*
+import kotlin.random.Random
 
 abstract class BaseFragment: Fragment()  {
 
@@ -18,6 +17,10 @@ abstract class BaseFragment: Fragment()  {
         return BigInteger(1, md.digest(md5String.toByteArray())).toString(16).padStart(32, '0')
     }
 
+    fun getRandom(min: Int, max: Int): Float {
+        require(min < max) { "Invalid range [$min, $max]" }
+        return (min + Random.nextFloat() * (max - min))
+    }
 
 
 }

@@ -78,27 +78,28 @@ class ApiClient {
     }
 
 
-    fun Register(data: JsonObject)
+
+    fun verifyMailCode(data: JsonObject)
     {
         GlobalScope.launch(Dispatchers.IO) {
 
 
-            api.MembershipRegister(data).enqueue(object:retrofit2.Callback<RegisterResponse>{
+            api.verifyMailCode(data).enqueue(object:retrofit2.Callback<VerifyMailCodeResponse>{
                 override fun onResponse(
-                    call: Call<RegisterResponse>,
-                    response: Response<RegisterResponse>
+                    call: Call<VerifyMailCodeResponse>,
+                    response: Response<VerifyMailCodeResponse>
                 ) {
                     if(response.isSuccessful)
                     {
-                        val data: RegisterResponse =response.body()!!
-                        EventBus.getDefault().post(RegisterEvent(data))
+                        val data: VerifyMailCodeResponse =response.body()!!
+                        EventBus.getDefault().post(GetVerifyMailCodeEvent(data))
                     }
                     else{
-                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                        EventBus.getDefault().post(errorEvent(response.code().toString()))
                     }
                 }
 
-                override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                override fun onFailure(call: Call<VerifyMailCodeResponse>, t: Throwable) {
                     EventBus.getDefault().post(errorEvent("连线失败请稍后再试"))
                 }
 
@@ -124,7 +125,7 @@ class ApiClient {
                         EventBus.getDefault().post(GetVerifyMailEvent(data))
                     }
                     else{
-                        EventBus.getDefault().post(errorEvent(response.message().toString()))
+                        EventBus.getDefault().post(errorEvent(response.code().toString()))
                     }
                 }
 
@@ -167,6 +168,11 @@ class ApiClient {
 
         }
     }
+
+
+
+
+
 
 
     fun updatePassword(data: JsonObject)

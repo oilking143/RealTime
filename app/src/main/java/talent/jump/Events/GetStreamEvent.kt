@@ -1,15 +1,15 @@
 package talent.jump.Events
 
-import talent.jump.data.StreamListResponse
+import talent.jump.data.LiveStreamListResponse
 
-class GetStreamEvent internal constructor(streamResponse: StreamListResponse){
-    private var streamResponse: StreamListResponse
+class GetStreamEvent internal constructor(streamResponse: LiveStreamListResponse){
+    private var streamResponse: LiveStreamListResponse
 
     init {
         this.streamResponse = streamResponse
     }
 
-    fun GetStreamResponse(): StreamListResponse
+    fun GetLiveStreamList(): LiveStreamListResponse
     {
         return streamResponse
     }
